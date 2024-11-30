@@ -80,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactionText: Enter The Rift
   _pointToInteract: {fileID: 5973297896954342677}
+  _distanceToInteract: 1
 --- !u!61 &2703184053720087153
 BoxCollider2D:
   m_ObjectHideFlags: 0

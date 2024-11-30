@@ -6,8 +6,10 @@ namespace WinterUniverse
     {
         [SerializeField] private string _interactionText = "Interact";
         [SerializeField] private Transform _pointToInteract;
+        [SerializeField] private float _distanceToInteract = 1f;
 
         public Transform PointToInteract => _pointToInteract;
+        public float DistanceToInteract => _distanceToInteract;
 
         public virtual string GetText()
         {

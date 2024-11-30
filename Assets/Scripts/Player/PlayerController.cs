@@ -5,14 +5,12 @@ namespace WinterUniverse
 {
     public class PlayerController : PawnController
     {
-        [SerializeField] private float _distanceToInteract = 2f;
-
         private Vector2 _moveInput;
         private Vector2 _cursorPosition;
         private Interactable _interactable;
         private RaycastHit2D _cameraHit;
 
-        public void OnrMove(InputValue value)
+        public void OnMove(InputValue value)
         {
             _moveInput = value.Get<Vector2>();
         }
@@ -24,7 +22,7 @@ namespace WinterUniverse
 
         public void OnInteract()
         {
-            if (_interactable == null || Vector2.Distance(transform.position, _interactable.PointToInteract.position) < _distanceToInteract)
+            if (_interactable == null || Vector2.Distance(transform.position, _interactable.PointToInteract.position) > _interactable.DistanceToInteract)
             {
                 return;
             }
@@ -44,12 +42,14 @@ namespace WinterUniverse
                 {
                     _interactable = interactable;
                     // get and show text
+                    Debug.Log(_interactable.GetText());
                 }
             }
             else if (_interactable != null)
             {
                 _interactable = null;
                 // reset text
+                Debug.Log("Interactable reset");
             }
         }
 
