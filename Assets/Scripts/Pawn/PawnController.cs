@@ -12,33 +12,18 @@ namespace WinterUniverse
         [SerializeField] protected float _moveSpeed = 4f;
         [SerializeField] protected LayerMask _detectableMask;
 
-        protected virtual void Awake()
+        public virtual void OnAwake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
         }
 
-        protected virtual void Start()
+        public virtual void OnUpdate()
         {
 
         }
 
-        protected virtual void OnEnable()
-        {
-
-        }
-
-        protected virtual void OnDisable()
-        {
-
-        }
-
-        protected virtual void Update()
-        {
-
-        }
-
-        protected virtual void FixedUpdate()
+        public virtual void OnFixedUpdate()
         {
 
         }

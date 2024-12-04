@@ -6,8 +6,7 @@ namespace WinterUniverse
     {
         public override void Interact(PlayerController player)
         {
-            // load dungeon scene
-            Debug.Log("Interacted with Rift");
+
         }
     }
 }

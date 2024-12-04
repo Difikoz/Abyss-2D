@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,8 @@ namespace WinterUniverse
 {
     public class PlayerController : PawnController
     {
+        public Action<Interactable, Vector2> OnInteractableChanged;
+
         private Vector2 _moveInput;
         private Vector2 _cursorPosition;
         private Interactable _interactable;
@@ -32,30 +35,28 @@ namespace WinterUniverse
             }
         }
 
-        protected override void Update()
+        public override void OnUpdate()
         {
-            base.Update();
+            base.OnUpdate();
             _cameraHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(_cursorPosition), Vector2.zero, 50f, _detectableMask);
             if (_cameraHit.collider != null)
             {
                 if (_cameraHit.collider.TryGetComponent(out Interactable interactable) && interactable != _interactable)
                 {
                     _interactable = interactable;
-                    // get and show text
-                    Debug.Log(_interactable.GetText());
+                    OnInteractableChanged?.Invoke(_interactable, _cursorPosition);
                 }
             }
             else if (_interactable != null)
             {
                 _interactable = null;
-                // reset text
-                Debug.Log("Interactable reset");
+                OnInteractableChanged?.Invoke(_interactable, _cursorPosition);
             }
         }
 
-        protected override void FixedUpdate()
+        public override void OnFixedUpdate()
         {
-            base.FixedUpdate();
+            base.OnFixedUpdate();
             _rb.linearVelocity = _moveInput.normalized * _moveSpeed;
         }
     }
