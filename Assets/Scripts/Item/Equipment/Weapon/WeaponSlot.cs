@@ -1,35 +1,57 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace WinterUniverse
 {
     public class WeaponSlot : MonoBehaviour
     {
-        [SerializeField] private Transform _shootPoint;
-        [SerializeField] private List<SpriteRenderer> _spriteRenderers = new();
+        [SerializeField] private SpriteRenderer _spriteRenderer;
 
-        private WeaponConfig _weapon;
+        [SerializeField] private WeaponConfig _weapon;
+        [SerializeField] private PolygonCollider2D _collider;
 
         public WeaponConfig Weapon => _weapon;
-        public Transform ShootPoint => _shootPoint;
+
+        public void Initialize()
+        {
+            _collider = _spriteRenderer.GetComponent<PolygonCollider2D>();
+            DisableDamageCollider();
+        }
 
         public void Setup(WeaponConfig weapon)
         {
+            if (_collider != null)
+            {
+                Destroy(_collider);
+            }
             _weapon = weapon;
             if (weapon != null)
             {
-                foreach (SpriteRenderer sr in _spriteRenderers)
-                {
-                    sr.sprite = weapon.Sprite;
-                }
+                _spriteRenderer.sprite = weapon.Sprite;
+                _collider = _spriteRenderer.gameObject.AddComponent<PolygonCollider2D>();
+                _collider.isTrigger = true;
             }
             else
             {
-                foreach (SpriteRenderer sr in _spriteRenderers)
-                {
-                    sr.sprite = null;
-                }
+                _spriteRenderer.sprite = null;
             }
+        }
+
+        public void EnableDamageCollider()
+        {
+            if (_collider == null)
+            {
+                return;
+            }
+            _collider.enabled = true;
+        }
+
+        public void DisableDamageCollider()
+        {
+            if (_collider == null)
+            {
+                return;
+            }
+            _collider.enabled = false;
         }
     }
 }

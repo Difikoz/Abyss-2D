@@ -19,6 +19,7 @@ namespace WinterUniverse
         public bool CanMove;
         public bool CanRotate;
         public bool CanDash;
+        public bool CanAttack;
         public bool IsAttacking;
         public bool IsAiming;
         public bool IsMoving;
@@ -120,6 +121,7 @@ namespace WinterUniverse
             CanMove = true;
             CanRotate = true;
             CanDash = true;
+            CanAttack = true;
             IsDead = false;
         }
 

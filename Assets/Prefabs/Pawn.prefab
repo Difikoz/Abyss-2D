@@ -517,6 +517,53 @@ CapsuleCollider2D:
   m_Offset: {x: 0.05, y: 0}
   m_Size: {x: 0.4, y: 0.25}
   m_Direction: 1
+--- !u!1 &1310181531755819616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7819577706699382671}
+  - component: {fileID: 7651900478485773285}
+  m_Layer: 0
+  m_Name: Left Slot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7819577706699382671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310181531755819616}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2762791321711846657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7651900478485773285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310181531755819616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c859260cbb1ac341828782d70fd46ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 5128630352291719799}
+  _weapon: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!1 &1519997028995449833
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +737,39 @@ MonoBehaviour:
   _type: {fileID: 11400000, guid: 9ea44c8ebb10aa74ca30067ee89cc018, type: 2}
   _spriteRenderers:
   - {fileID: 6540591484201679607}
+--- !u!1 &2230245119634298425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2762791321711846657}
+  m_Layer: 0
+  m_Name: Weapon Slots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2762791321711846657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230245119634298425}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8699462060111593323}
+  - {fileID: 7819577706699382671}
+  m_Father: {fileID: 5241595530347782064}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2243953978267022355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,7 +1769,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1223948641696683030}
   - component: {fileID: 5128630352291719799}
-  m_Layer: 7
+  - component: {fileID: 633941151808318283}
+  m_Layer: 8
   m_Name: Weapon Left Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1766,6 +1847,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &633941151808318283
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6152801785254418938}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.08571429, y: 0.5}
+    oldSize: {x: 1.09375, y: 0.375}
+    newSize: {x: 0.375, y: 0.125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.0625, y: 0.1875}
+      - {x: -0.09375, y: 0.15625}
+      - {x: -0.09375, y: -0.125}
+      - {x: -0.0625, y: -0.1875}
+      - {x: 1, y: -0.1875}
+      - {x: 1, y: 0.15625}
+      - {x: 0.96875, y: 0.1875}
+  m_UseDelaunayMesh: 0
 --- !u!1 &6378275686598637555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,7 +2086,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5238207418784724145}
-  - {fileID: 8699462060111593323}
+  - {fileID: 2762791321711846657}
   - {fileID: 3886767468737128212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2003,6 +2138,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadf810b93c37d240a56ee0c01c7b7da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponSlots:
+  - {fileID: 7931899460020313740}
+  - {fileID: 7651900478485773285}
+  _armorSlots:
+  - {fileID: 1936494985790825732}
+  - {fileID: 5197674035050423350}
+  - {fileID: 8068354539574837892}
+  - {fileID: 8223825044463618843}
+  - {fileID: 3141978305411869595}
+  - {fileID: 7904771504978379311}
+  - {fileID: 4824600852921541119}
+  - {fileID: 2243085453990144641}
 --- !u!114 &1643925456114826418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2062,6 +2209,7 @@ MonoBehaviour:
   CanMove: 0
   CanRotate: 0
   CanDash: 0
+  CanAttack: 0
   IsAttacking: 0
   IsAiming: 0
   IsMoving: 0
@@ -2174,7 +2322,7 @@ GameObject:
   - component: {fileID: 8699462060111593323}
   - component: {fileID: 7931899460020313740}
   m_Layer: 0
-  m_Name: Weapon Slot
+  m_Name: Right Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2193,7 +2341,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5241595530347782064}
+  m_Father: {fileID: 2762791321711846657}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7931899460020313740
 MonoBehaviour:
@@ -2207,8 +2355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c859260cbb1ac341828782d70fd46ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootPoint: {fileID: 0}
-  _spriteRenderers: []
+  _spriteRenderer: {fileID: 8851587742723849283}
+  _weapon: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!1 &7199236577847378715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2306,7 +2455,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8257330279037849039}
   - component: {fileID: 8851587742723849283}
-  m_Layer: 7
+  - component: {fileID: 612118598730972831}
+  m_Layer: 8
   m_Name: Weapon Right Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2383,6 +2533,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &612118598730972831
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283591944558786614}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.08571429, y: 0.5}
+    oldSize: {x: 1.09375, y: 0.375}
+    newSize: {x: 0.375, y: 0.125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.0625, y: 0.1875}
+      - {x: -0.09375, y: 0.15625}
+      - {x: -0.09375, y: -0.125}
+      - {x: -0.0625, y: -0.1875}
+      - {x: 1, y: -0.1875}
+      - {x: 1, y: 0.15625}
+      - {x: 0.96875, y: 0.1875}
+  m_UseDelaunayMesh: 0
 --- !u!1 &7583004866822030662
 GameObject:
   m_ObjectHideFlags: 0

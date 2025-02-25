@@ -28,7 +28,7 @@ namespace WinterUniverse
         {
             if (AttackInput)
             {
-
+                _pawn.PawnEquipment.PerformAttack();
             }
             _pawn.PawnStatus.IsAiming = AimInput;
             if (AimInput)

@@ -529,6 +529,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 728684505}
+  _startWeaponRight: {fileID: 11400000, guid: 4fea2661a5018b548a4f739cfd2357c4, type: 2}
+  _startWeaponLeft: {fileID: 11400000, guid: 4fea2661a5018b548a4f739cfd2357c4, type: 2}
 --- !u!1 &757267613
 GameObject:
   m_ObjectHideFlags: 0

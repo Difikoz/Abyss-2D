@@ -24,12 +24,13 @@ namespace WinterUniverse
             _animator.SetBool("IsDashing", _pawn.PawnStatus.IsDashing);
         }
 
-        public void PlayActionAnimation(string name, float fadeTime = 0.1f, bool isPerfomingAction = true, bool canMove = false, bool canRotate = false, bool canDash = false)
+        public void PlayActionAnimation(string name, float fadeTime = 0.1f, bool isPerfomingAction = true, bool canMove = false, bool canRotate = false, bool canDash = false, bool canAttack = false)
         {
             _pawn.PawnStatus.IsPerfomingAction = isPerfomingAction;
             _pawn.PawnStatus.CanMove = canMove;
             _pawn.PawnStatus.CanRotate = canRotate;
             _pawn.PawnStatus.CanDash = canDash;
+            _pawn.PawnStatus.CanAttack = canAttack;
             _animator.CrossFade(name, fadeTime);
         }
     }

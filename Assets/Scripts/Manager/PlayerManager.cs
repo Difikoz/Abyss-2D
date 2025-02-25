@@ -9,6 +9,8 @@ namespace WinterUniverse
         private PlayerInputActions _inputActions;
 
         [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private WeaponConfig _startWeaponRight;
+        [SerializeField] private WeaponConfig _startWeaponLeft;
 
         public PawnController Pawn => _pawn;
 
@@ -19,6 +21,8 @@ namespace WinterUniverse
             _pawn = LeanPool.Spawn(GameManager.StaticInstance.PawnPrefab, _spawnPoint.position, Quaternion.identity).GetComponent<PawnController>();
             _pawn.InitializePawn();
             _pawn.Revive();
+            _pawn.PawnEquipment.EquipWeapon(_startWeaponRight, 0);
+            _pawn.PawnEquipment.EquipWeapon(_startWeaponLeft, 1);
         }
 
         public void OnUpdate()

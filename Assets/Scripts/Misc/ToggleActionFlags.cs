@@ -13,6 +13,8 @@ namespace WinterUniverse
         [SerializeField] private bool _removeCanRotate = false;
         [SerializeField] private bool _addCanDash = true;
         [SerializeField] private bool _removeCanDash = false;
+        [SerializeField] private bool _addCanAttack = true;
+        [SerializeField] private bool _removeCanAttack = false;
 
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -49,6 +51,14 @@ namespace WinterUniverse
             else if (_removeCanDash)
             {
                 _pawn.PawnStatus.CanDash = false;
+            }
+            if (_addCanAttack)
+            {
+                _pawn.PawnStatus.CanAttack = true;
+            }
+            else if (_removeCanAttack)
+            {
+                _pawn.PawnStatus.CanAttack = false;
             }
         }
 
