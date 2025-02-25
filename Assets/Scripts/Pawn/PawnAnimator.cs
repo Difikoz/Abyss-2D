@@ -16,6 +16,9 @@ namespace WinterUniverse
 
         public void OnFixedUpdate()
         {
+            _animator.SetFloat("MoveSpeed", _pawn.PawnStatus.MoveSpeed);
+            _animator.SetFloat("ForwardVelocity", _pawn.PawnStatus.ForwardVelocity);
+            _animator.SetFloat("RightVelocity", _pawn.PawnStatus.RightVelocity);
             _animator.SetBool("IsMoving", _pawn.PawnStatus.IsMoving);
             _animator.SetBool("IsDashing", _pawn.PawnStatus.IsDashing);
         }

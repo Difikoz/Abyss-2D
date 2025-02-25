@@ -52,6 +52,7 @@ namespace WinterUniverse
 
         private void FixedUpdate()
         {
+            _pawnInput.OnFixedUpdate();
             _pawnStatus.OnFixedUpdate();
             _pawnLocomotion.OnFixedUpdate();
             _pawnAnimator.OnFixedUpdate();

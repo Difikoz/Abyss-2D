@@ -18,6 +18,7 @@ namespace WinterUniverse
         public bool CanMove;
         public bool CanRotate;
         public bool CanDash;
+        public bool IsAiming;
         public bool IsMoving;
         public bool IsRotating;
         public bool IsDashing;
@@ -55,6 +56,8 @@ namespace WinterUniverse
         public float RotateSpeed;
         public float DashForce;
         public float Mass;
+        public float ForwardVelocity;
+        public float RightVelocity;
 
         public void Initialize()
         {
@@ -63,7 +66,6 @@ namespace WinterUniverse
             CanMove = true;
             CanRotate = true;
             CanDash = true;
-            IsDashing = false;
             IsDead = false;
         }
 
