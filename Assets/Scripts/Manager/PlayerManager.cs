@@ -22,7 +22,9 @@ namespace WinterUniverse
         {
             _pawn.PawnInput.MoveDirection = _inputActions.Pawn.Move.ReadValue<Vector2>();
             _pawn.PawnInput.LookPoint = Camera.main.ScreenToWorldPoint(_inputActions.Pawn.Cursor.ReadValue<Vector2>());
+            _pawn.PawnInput.AttackInput = _inputActions.Pawn.Attack.IsPressed();
             _pawn.PawnInput.AimInput = _inputActions.Pawn.Aim.IsPressed();
+            _pawn.PawnInput.DashInput = _inputActions.Pawn.Dash.IsPressed();
         }
     }
 }

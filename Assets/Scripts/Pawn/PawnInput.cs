@@ -26,15 +26,22 @@ namespace WinterUniverse
 
         public void OnFixedUpdate()
         {
+            if (AttackInput)
+            {
+
+            }
+            _pawn.PawnStatus.IsAiming = AimInput;
             if (AimInput)
             {
-                _pawn.PawnStatus.IsAiming = true;
                 LookDirection = LookPoint - (Vector2)transform.position;
             }
-            else
+            else if (MoveDirection != Vector2.zero)
             {
-                _pawn.PawnStatus.IsAiming = false;
                 LookDirection = MoveDirection;
+            }
+            if (DashInput)
+            {
+                _pawn.PawnLocomotion.Dash();
             }
         }
     }

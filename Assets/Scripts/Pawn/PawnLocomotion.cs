@@ -10,8 +10,9 @@ namespace WinterUniverse
         private Vector2 _moveVelocity;
         private Vector2 _dashVelocity;
         private Vector2 _knockbackVelocity;
-        private Vector2 _aimDirection;
         private float _lookAngle;
+
+        [SerializeField] private float _turnAngle = 45f;
 
         public void Initialize()
         {
@@ -24,7 +25,7 @@ namespace WinterUniverse
             HandleMovement();
             HandleRotation();
             _rb.linearVelocity = _moveVelocity + _dashVelocity + _knockbackVelocity;
-            _rb.rotation = _lookAngle;
+            _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, _lookAngle, _pawn.PawnStatus.RotateSpeed * Time.fixedDeltaTime);
             HandleStates();
         }
 
@@ -54,18 +55,9 @@ namespace WinterUniverse
             {
                 return;
             }
-            if (_pawn.PawnStatus.IsAiming)
+            if (_pawn.PawnInput.LookDirection != Vector2.zero)
             {
-                _aimDirection = _pawn.PawnInput.LookPoint - (Vector2)transform.position;
-                _lookAngle = Mathf.MoveTowardsAngle(_lookAngle, Mathf.Atan2(_aimDirection.y, _aimDirection.x) * Mathf.Rad2Deg, _pawn.PawnStatus.RotateSpeed * Time.fixedDeltaTime);
-            }
-            else if (_pawn.PawnInput.LookDirection != Vector2.zero)
-            {
-                _lookAngle = Mathf.MoveTowardsAngle(_lookAngle, Mathf.Atan2(_pawn.PawnInput.LookDirection.y, _pawn.PawnInput.LookDirection.x) * Mathf.Rad2Deg, _pawn.PawnStatus.RotateSpeed * Time.fixedDeltaTime);
-            }
-            else if (_pawn.PawnInput.MoveDirection != Vector2.zero)
-            {
-                _lookAngle = Mathf.MoveTowardsAngle(_lookAngle, Mathf.Atan2(_pawn.PawnInput.MoveDirection.y, _pawn.PawnInput.MoveDirection.x) * Mathf.Rad2Deg, _pawn.PawnStatus.RotateSpeed * Time.fixedDeltaTime);
+                _lookAngle = Mathf.Atan2(_pawn.PawnInput.LookDirection.y, _pawn.PawnInput.LookDirection.x) * Mathf.Rad2Deg;
             }
         }
 
@@ -73,6 +65,7 @@ namespace WinterUniverse
         {
             _pawn.PawnStatus.ForwardVelocity = Vector2.Dot(_moveVelocity, transform.right) / _pawn.PawnStatus.MoveSpeed;
             _pawn.PawnStatus.RightVelocity = Vector2.Dot(_moveVelocity, -transform.up) / _pawn.PawnStatus.MoveSpeed;
+            _pawn.PawnStatus.TurnVelocity = Vector2.SignedAngle(_pawn.PawnInput.LookDirection, transform.right) * _pawn.PawnStatus.RotateSpeed / _turnAngle / 360f;
             _pawn.PawnStatus.IsMoving = _moveVelocity != Vector2.zero;
             _pawn.PawnStatus.IsRotating = _rb.rotation != _lookAngle;
             _pawn.PawnStatus.IsDashing = _dashVelocity != Vector2.zero;

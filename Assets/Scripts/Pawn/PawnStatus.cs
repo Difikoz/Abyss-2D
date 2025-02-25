@@ -58,6 +58,7 @@ namespace WinterUniverse
         public float Mass;
         public float ForwardVelocity;
         public float RightVelocity;
+        public float TurnVelocity;
 
         public void Initialize()
         {
