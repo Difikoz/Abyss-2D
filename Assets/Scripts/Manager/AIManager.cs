@@ -10,23 +10,17 @@ namespace WinterUniverse
 
         private List<PawnController> _pawns = new();
 
-        private void Awake()
+        public void Initialize()
         {
             for (int i = 0; i < _spawnPoints.Count; i++)
             {
                 _pawns.Add(LeanPool.Spawn(GameManager.StaticInstance.PawnPrefab, _spawnPoints[i].position, Quaternion.identity).GetComponent<PawnController>());
+                _pawns[i].InitializePawn();
+                _pawns[i].Revive();
             }
         }
 
-        private void Start()
-        {
-            foreach (PawnController pawn in _pawns)
-            {
-                pawn.InitializePawn();
-            }
-        }
-
-        private void FixedUpdate()
+        public void OnFixedUpdate()
         {
             foreach (PawnController pawn in _pawns)
             {

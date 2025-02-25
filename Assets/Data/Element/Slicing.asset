@@ -16,7 +16,7 @@ MonoBehaviour:
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 0}
-  _damageStat: {fileID: 0}
-  _resistanceStat: {fileID: 0}
+  _damageStat: {fileID: 11400000, guid: a7aad6e4002b3ef41b8af4fd98cfed30, type: 2}
+  _resistanceStat: {fileID: 11400000, guid: 7d631f9da611bab45a2b0d83edb7591d, type: 2}
   _hitVFX: []
   _hitClips: []

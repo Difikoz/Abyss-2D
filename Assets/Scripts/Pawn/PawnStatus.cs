@@ -61,12 +61,30 @@ namespace WinterUniverse
         private Stat _healthRegenerationStat;
         private Stat _energyMaxStat;
         private Stat _energyRegenerationStat;
+
         private Stat _accelerationStat;
         private Stat _decelerationStat;
         private Stat _moveSpeedStat;
         private Stat _rotateSpeedStat;
         private Stat _dashForceStat;
         private Stat _massStat;
+
+        private Stat _damageDealt;
+        private Stat _damageTaken;
+
+        private Stat _slicingDamage;
+        private Stat _piercingDamage;
+        private Stat _bluntDamage;
+        private Stat _thermalDamage;
+        private Stat _electricalDamage;
+        private Stat _chemicalDamage;
+
+        private Stat _slicingResistance;
+        private Stat _piercingResistance;
+        private Stat _bluntResistance;
+        private Stat _thermalResistance;
+        private Stat _electricalResistance;
+        private Stat _chemicalResistance;
 
         public Stat HealthMaxStat => _healthMaxStat;
         public Stat HealthRegenerationStat => _healthRegenerationStat;
@@ -78,6 +96,20 @@ namespace WinterUniverse
         public Stat RotateSpeedStat => _rotateSpeedStat;
         public Stat DashForceStat => _dashForceStat;
         public Stat MassStat => _massStat;
+        public Stat DamageDealt => _damageDealt;
+        public Stat DamageTaken => _damageTaken;
+        public Stat SlicingDamage => _slicingDamage;
+        public Stat PiercingDamage => _piercingDamage;
+        public Stat BluntDamage => _bluntDamage;
+        public Stat ThermalDamage => _thermalDamage;
+        public Stat ElectricalDamage => _electricalDamage;
+        public Stat ChemicalDamage => _chemicalDamage;
+        public Stat SlicingResistance => _slicingResistance;
+        public Stat PiercingResistance => _piercingResistance;
+        public Stat BluntResistance => _bluntResistance;
+        public Stat ThermalResistance => _thermalResistance;
+        public Stat ElectricalResistance => _electricalResistance;
+        public Stat ChemicalResistance => _chemicalResistance;
 
         public void Initialize()
         {
@@ -168,6 +200,48 @@ namespace WinterUniverse
                         break;
                     case "Mass":
                         _massStat = s;
+                        break;
+                    case "Damage Dealth":
+                        _damageDealt = s;
+                        break;
+                    case "Damage Taken":
+                        _damageTaken = s;
+                        break;
+                    case "Slicing Damage":
+                        _slicingDamage = s;
+                        break;
+                    case "Piercing Damage":
+                        _piercingDamage = s;
+                        break;
+                    case "Blunt Damage":
+                        _bluntDamage = s;
+                        break;
+                    case "Thermal Damage":
+                        _thermalDamage = s;
+                        break;
+                    case "Electrical Damage":
+                        _electricalDamage = s;
+                        break;
+                    case "Chemical Damage":
+                        _chemicalDamage = s;
+                        break;
+                    case "Slicing Resistance":
+                        _slicingDamage = s;
+                        break;
+                    case "Piercing Resistance":
+                        _piercingResistance = s;
+                        break;
+                    case "Blunt Resistance":
+                        _bluntResistance = s;
+                        break;
+                    case "Thermal Resistance":
+                        _thermalResistance = s;
+                        break;
+                    case "Electrical Resistance":
+                        _electricalResistance = s;
+                        break;
+                    case "Chemical Resistance":
+                        _chemicalResistance = s;
                         break;
                 }
             }

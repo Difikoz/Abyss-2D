@@ -90,11 +90,12 @@ namespace WinterUniverse
 
         public void Dash(Vector2 direction)
         {
-            if (!_pawn.PawnStatus.CanDash)
+            if (!_pawn.PawnStatus.CanDash || _dashVelocity != Vector2.zero)
             {
                 return;
             }
             _dashVelocity = direction.normalized * _pawn.PawnStatus.DashForceStat.CurrentValue;
+            //_rb.rotation = _lookAngle;// force look to dash direction
         }
 
         public void Knockback(Vector2 direction, float force)

@@ -10,19 +10,18 @@ namespace WinterUniverse
 
         [SerializeField] private Transform _spawnPoint;
 
-        private void Awake()
-        {
-            _pawn = LeanPool.Spawn(GameManager.StaticInstance.PawnPrefab, _spawnPoint.position, Quaternion.identity).GetComponent<PawnController>();
-        }
+        public PawnController Pawn => _pawn;
 
-        private void Start()
+        public void Initialize()
         {
             _inputActions = new();
             _inputActions.Enable();
+            _pawn = LeanPool.Spawn(GameManager.StaticInstance.PawnPrefab, _spawnPoint.position, Quaternion.identity).GetComponent<PawnController>();
             _pawn.InitializePawn();
+            _pawn.Revive();
         }
 
-        private void Update()
+        public void OnUpdate()
         {
             _pawn.PawnInput.MoveDirection = _inputActions.Pawn.Move.ReadValue<Vector2>();
             _pawn.PawnInput.LookPoint = Camera.main.ScreenToWorldPoint(_inputActions.Pawn.Cursor.ReadValue<Vector2>());
@@ -31,7 +30,7 @@ namespace WinterUniverse
             _pawn.PawnInput.DashInput = _inputActions.Pawn.Dash.IsPressed();
         }
 
-        private void FixedUpdate()
+        public void OnFixedUpdate()
         {
             _pawn.OnFixedUpdate();
         }
