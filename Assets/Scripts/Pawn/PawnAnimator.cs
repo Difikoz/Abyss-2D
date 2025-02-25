@@ -16,7 +16,7 @@ namespace WinterUniverse
 
         public void OnFixedUpdate()
         {
-            _animator.SetFloat("MoveSpeed", _pawn.PawnStatus.MoveSpeed);
+            _animator.SetFloat("MoveSpeed", _pawn.PawnStatus.MoveSpeedStat.CurrentValue);
             _animator.SetFloat("ForwardVelocity", _pawn.PawnStatus.ForwardVelocity);
             _animator.SetFloat("RightVelocity", _pawn.PawnStatus.RightVelocity);
             _animator.SetFloat("TurnVelocity", _pawn.PawnStatus.TurnVelocity);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace WinterUniverse
@@ -18,6 +19,7 @@ namespace WinterUniverse
         public bool CanMove;
         public bool CanRotate;
         public bool CanDash;
+        public bool IsAttacking;
         public bool IsAiming;
         public bool IsMoving;
         public bool IsRotating;
@@ -27,9 +29,7 @@ namespace WinterUniverse
 
         [Header("HEALTH")]
         public float HealthCurrent;
-        public float HealthMax;
-        public float HealthRegeneration;
-        public float HealthPercent => HealthCurrent / HealthMax;
+        public float HealthPercent => HealthCurrent / HealthMaxStat.CurrentValue;
 
         [SerializeField] private float _healthRegenerationDelayTime = 10f;
         [SerializeField] private float _healthRegenerationTickTime = 0.5f;
@@ -39,9 +39,7 @@ namespace WinterUniverse
 
         [Header("ENERGY")]
         public float EnergyCurrent;
-        public float EnergyMax;
-        public float EnergyRegeneration;
-        public float EnergyPercent => EnergyCurrent / EnergyMax;
+        public float EnergyPercent => EnergyCurrent / EnergyMaxStat.CurrentValue;
 
         [SerializeField] private float _energyRegenerationDelayTime = 5f;
         [SerializeField] private float _energyRegenerationTickTime = 0.25f;
@@ -50,19 +48,42 @@ namespace WinterUniverse
         private float _energyRegenerationTickCurrentTime;
 
         [Header("LOCOMOTION")]
-        public float Acceleration;
-        public float Deceleration;
-        public float MoveSpeed;
-        public float RotateSpeed;
-        public float DashForce;
-        public float Mass;
         public float ForwardVelocity;
         public float RightVelocity;
         public float TurnVelocity;
 
+        [Header("STATS")]
+        private List<Stat> _stats = new();
+
+        public List<Stat> Stats => _stats;
+
+        private Stat _healthMaxStat;
+        private Stat _healthRegenerationStat;
+        private Stat _energyMaxStat;
+        private Stat _energyRegenerationStat;
+        private Stat _accelerationStat;
+        private Stat _decelerationStat;
+        private Stat _moveSpeedStat;
+        private Stat _rotateSpeedStat;
+        private Stat _dashForceStat;
+        private Stat _massStat;
+
+        public Stat HealthMaxStat => _healthMaxStat;
+        public Stat HealthRegenerationStat => _healthRegenerationStat;
+        public Stat EnergyMaxStat => _energyMaxStat;
+        public Stat EnergyRegenerationStat => _energyRegenerationStat;
+        public Stat AccelerationStat => _accelerationStat;
+        public Stat DecelerationStat => _decelerationStat;
+        public Stat MoveSpeedStat => _moveSpeedStat;
+        public Stat RotateSpeedStat => _rotateSpeedStat;
+        public Stat DashForceStat => _dashForceStat;
+        public Stat MassStat => _massStat;
+
         public void Initialize()
         {
             _pawn = GetComponent<PawnController>();
+            CreateStats();
+            AssignStats();
             IsPerfomingAction = false;
             CanMove = true;
             CanRotate = true;
@@ -76,6 +97,88 @@ namespace WinterUniverse
             TickEnergyRegeneration();
         }
 
+        #region STATS
+        public void AddStatModifier(StatModifierCreator creator)
+        {
+            foreach (Stat s in _stats)
+            {
+                if (s.Config == creator.Stat)
+                {
+                    s.AddModifier(creator.Modifier);
+                    break;
+                }
+            }
+            RecalculateStats();
+        }
+
+        public void RemoveStatModifier(StatModifierCreator creator)
+        {
+            foreach (Stat s in _stats)
+            {
+                if (s.Config == creator.Stat)
+                {
+                    s.RemoveModifier(creator.Modifier);
+                    break;
+                }
+            }
+            RecalculateStats();
+        }
+
+        private void CreateStats()
+        {
+            _stats = new();
+            foreach (StatConfig stat in GameManager.StaticInstance.Stats)
+            {
+                _stats.Add(new(stat));
+            }
+        }
+
+        private void AssignStats()
+        {
+            foreach (Stat s in _stats)
+            {
+                switch (s.Config.DisplayName)
+                {
+                    case "Health":
+                        _healthMaxStat = s;
+                        break;
+                    case "Health Regeneration":
+                        _healthRegenerationStat = s;
+                        break;
+                    case "Energy":
+                        _energyMaxStat = s;
+                        break;
+                    case "Energy Regeneration":
+                        _energyRegenerationStat = s;
+                        break;
+                    case "Acceleration":
+                        _accelerationStat = s;
+                        break;
+                    case "Deceleration":
+                        _decelerationStat = s;
+                        break;
+                    case "Move Speed":
+                        _moveSpeedStat = s;
+                        break;
+                    case "Rotate Speed":
+                        _rotateSpeedStat = s;
+                        break;
+                    case "Dash Force":
+                        _dashForceStat = s;
+                        break;
+                    case "Mass":
+                        _massStat = s;
+                        break;
+                }
+            }
+        }
+
+        public void RecalculateStats()
+        {
+
+        }
+        #endregion
+
         #region HEALTH
         public void DamageHealth(float value, PawnController source = null)
         {
@@ -88,7 +191,7 @@ namespace WinterUniverse
                 OnTakedDamageFromSource?.Invoke(source);
             }
             _healthRegenerationDelayCurrentTime = 0f;
-            HealthCurrent = Mathf.Clamp(HealthCurrent - value, 0f, HealthMax);
+            HealthCurrent = Mathf.Clamp(HealthCurrent - value, 0f, HealthMaxStat.CurrentValue);
             if (HealthCurrent <= 0f)
             {
                 _pawn.Die();
@@ -105,13 +208,13 @@ namespace WinterUniverse
             {
                 return;
             }
-            HealthCurrent = Mathf.Clamp(HealthCurrent + value, 0f, HealthMax);
+            HealthCurrent = Mathf.Clamp(HealthCurrent + value, 0f, HealthMaxStat.CurrentValue);
             InvokeOnHealthChanged();
         }
 
         public void InvokeOnHealthChanged()
         {
-            OnHealthChanged?.Invoke(HealthCurrent, HealthMax);
+            OnHealthChanged?.Invoke(HealthCurrent, HealthMaxStat.CurrentValue);
         }
 
         private void TickHealthRegeneration()
@@ -122,7 +225,7 @@ namespace WinterUniverse
                 {
                     if (HealthPercent < 1f)
                     {
-                        RestoreHealth(HealthRegeneration);
+                        RestoreHealth(HealthRegenerationStat.CurrentValue);
                     }
                     _healthRegenerationTickCurrentTime = 0f;
                 }
@@ -147,7 +250,7 @@ namespace WinterUniverse
                 return;
             }
             _energyRegenerationDelayCurrentTime = 0f;
-            EnergyCurrent = Mathf.Clamp(EnergyCurrent - value, 0f, EnergyMax);
+            EnergyCurrent = Mathf.Clamp(EnergyCurrent - value, 0f, EnergyMaxStat.CurrentValue);
             InvokeOnEnergyChanged();
         }
 
@@ -157,13 +260,13 @@ namespace WinterUniverse
             {
                 return;
             }
-            EnergyCurrent = Mathf.Clamp(EnergyCurrent + value, 0f, EnergyMax);
+            EnergyCurrent = Mathf.Clamp(EnergyCurrent + value, 0f, EnergyMaxStat.CurrentValue);
             InvokeOnEnergyChanged();
         }
 
         public void InvokeOnEnergyChanged()
         {
-            OnEnergyChanged?.Invoke(EnergyCurrent, EnergyMax);
+            OnEnergyChanged?.Invoke(EnergyCurrent, EnergyMaxStat.CurrentValue);
         }
 
         private void TickEnergyRegeneration()
@@ -174,7 +277,7 @@ namespace WinterUniverse
                 {
                     if (EnergyPercent < 1f)
                     {
-                        RestoreEnergy(EnergyRegeneration);
+                        RestoreEnergy(EnergyRegenerationStat.CurrentValue);
                     }
                     _energyRegenerationTickCurrentTime = 0f;
                 }

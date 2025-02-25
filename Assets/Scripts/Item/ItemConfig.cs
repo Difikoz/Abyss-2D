@@ -2,16 +2,14 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
-    public class ItemConfig : ScriptableObject
+    public class ItemConfig : BaseInfoConfig
     {
-        [SerializeField] private string _displayName = "Name";
-        [SerializeField, TextArea] private string _description = "Description";
-        [SerializeField] private Color _color;
-        [SerializeField] private Sprite _icon;
+        [SerializeField] private float _weight = 1f;
+        [SerializeField] private int _maxInStack = 1;
+        [SerializeField] private int _price = 100;
 
-        public string DisplayName => _displayName;
-        public string Description => _description;
-        public Color Color => _color;
-        public Sprite Icon => _icon;
+        public float Weight => _weight;
+        public int MaxInStack => _maxInStack;
+        public int Price => _price;
     }
 }

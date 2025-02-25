@@ -25,7 +25,7 @@ namespace WinterUniverse
             HandleMovement();
             HandleRotation();
             _rb.linearVelocity = _moveVelocity + _dashVelocity + _knockbackVelocity;
-            _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, _lookAngle, _pawn.PawnStatus.RotateSpeed * Time.fixedDeltaTime);
+            _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, _lookAngle, _pawn.PawnStatus.RotateSpeedStat.CurrentValue * Time.fixedDeltaTime);
             HandleStates();
         }
 
@@ -33,19 +33,19 @@ namespace WinterUniverse
         {
             if (_pawn.PawnStatus.CanMove && _pawn.PawnInput.MoveDirection != Vector2.zero)
             {
-                _moveVelocity = Vector2.MoveTowards(_moveVelocity, _pawn.PawnInput.MoveDirection.normalized * _pawn.PawnStatus.MoveSpeed, _pawn.PawnStatus.Acceleration * Time.fixedDeltaTime);
+                _moveVelocity = Vector2.MoveTowards(_moveVelocity, _pawn.PawnInput.MoveDirection.normalized * _pawn.PawnStatus.MoveSpeedStat.CurrentValue, _pawn.PawnStatus.AccelerationStat.CurrentValue * Time.fixedDeltaTime);
             }
             else
             {
-                _moveVelocity = Vector2.MoveTowards(_moveVelocity, Vector2.zero, _pawn.PawnStatus.Deceleration * Time.fixedDeltaTime);
+                _moveVelocity = Vector2.MoveTowards(_moveVelocity, Vector2.zero, _pawn.PawnStatus.DecelerationStat.CurrentValue * Time.fixedDeltaTime);
             }
             if (_dashVelocity != Vector2.zero)
             {
-                _dashVelocity = Vector2.MoveTowards(_dashVelocity, Vector2.zero, _pawn.PawnStatus.DashForce / 0.5f * Time.fixedDeltaTime);
+                _dashVelocity = Vector2.MoveTowards(_dashVelocity, Vector2.zero, _pawn.PawnStatus.DashForceStat.CurrentValue / 0.5f * Time.fixedDeltaTime);
             }
             if (_knockbackVelocity != Vector2.zero)
             {
-                _knockbackVelocity = Vector2.MoveTowards(_knockbackVelocity, Vector2.zero, _pawn.PawnStatus.Mass / 100f * Time.fixedDeltaTime);
+                _knockbackVelocity = Vector2.MoveTowards(_knockbackVelocity, Vector2.zero, _pawn.PawnStatus.MassStat.CurrentValue / 100f * Time.fixedDeltaTime);
             }
         }
 
@@ -63,9 +63,9 @@ namespace WinterUniverse
 
         private void HandleStates()
         {
-            _pawn.PawnStatus.ForwardVelocity = Vector2.Dot(_moveVelocity, transform.right) / _pawn.PawnStatus.MoveSpeed;
-            _pawn.PawnStatus.RightVelocity = Vector2.Dot(_moveVelocity, -transform.up) / _pawn.PawnStatus.MoveSpeed;
-            _pawn.PawnStatus.TurnVelocity = Vector2.SignedAngle(_pawn.PawnInput.LookDirection, transform.right) * _pawn.PawnStatus.RotateSpeed / _turnAngle / 360f;
+            _pawn.PawnStatus.ForwardVelocity = Vector2.Dot(_moveVelocity, transform.right) / _pawn.PawnStatus.MoveSpeedStat.CurrentValue;
+            _pawn.PawnStatus.RightVelocity = Vector2.Dot(_moveVelocity, -transform.up) / _pawn.PawnStatus.MoveSpeedStat.CurrentValue;
+            _pawn.PawnStatus.TurnVelocity = Vector2.SignedAngle(_pawn.PawnInput.LookDirection, transform.right) * _pawn.PawnStatus.RotateSpeedStat.CurrentValue / _turnAngle / 360f;
             _pawn.PawnStatus.IsMoving = _moveVelocity != Vector2.zero;
             _pawn.PawnStatus.IsRotating = _rb.rotation != _lookAngle;
             _pawn.PawnStatus.IsDashing = _dashVelocity != Vector2.zero;
@@ -94,7 +94,7 @@ namespace WinterUniverse
             {
                 return;
             }
-            _dashVelocity = direction.normalized * _pawn.PawnStatus.DashForce;
+            _dashVelocity = direction.normalized * _pawn.PawnStatus.DashForceStat.CurrentValue;
         }
 
         public void Knockback(Vector2 direction, float force)

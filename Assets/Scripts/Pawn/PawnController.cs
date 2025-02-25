@@ -6,6 +6,7 @@ namespace WinterUniverse
     [RequireComponent(typeof(PawnCombat))]
     [RequireComponent(typeof(PawnEquipment))]
     [RequireComponent(typeof(PawnInput))]
+    [RequireComponent(typeof(PawnInventory))]
     [RequireComponent(typeof(PawnLocomotion))]
     [RequireComponent(typeof(PawnStatus))]
     public class PawnController : MonoBehaviour
@@ -14,6 +15,7 @@ namespace WinterUniverse
         private PawnCombat _pawnCombat;
         private PawnEquipment _pawnEquipment;
         private PawnInput _pawnInput;
+        private PawnInventory _pawnInventory;
         private PawnLocomotion _pawnLocomotion;
         private PawnStatus _pawnStatus;
 
@@ -21,10 +23,11 @@ namespace WinterUniverse
         public PawnCombat PawnCombat => _pawnCombat;
         public PawnEquipment PawnEquipment => _pawnEquipment;
         public PawnInput PawnInput => _pawnInput;
+        public PawnInventory PawnInventory => _pawnInventory;
         public PawnLocomotion PawnLocomotion => _pawnLocomotion;
         public PawnStatus PawnStatus => _pawnStatus;
 
-        private void Awake()
+        public void InitializePawn()
         {
             GetComponents();
             InitializeComponents();
@@ -36,6 +39,7 @@ namespace WinterUniverse
             _pawnCombat = GetComponent<PawnCombat>();
             _pawnEquipment = GetComponent<PawnEquipment>();
             _pawnInput = GetComponent<PawnInput>();
+            _pawnInventory = GetComponent<PawnInventory>();
             _pawnLocomotion = GetComponent<PawnLocomotion>();
             _pawnStatus = GetComponent<PawnStatus>();
         }
@@ -46,11 +50,12 @@ namespace WinterUniverse
             _pawnCombat.Initialize();
             _pawnEquipment.Initialize();
             _pawnInput.Initialize();
+            _pawnInventory.Initialize();
             _pawnLocomotion.Initialize();
             _pawnStatus.Initialize();
         }
 
-        private void FixedUpdate()
+        public void OnFixedUpdate()
         {
             _pawnInput.OnFixedUpdate();
             _pawnStatus.OnFixedUpdate();
@@ -64,6 +69,10 @@ namespace WinterUniverse
             //{
             //    return;
             //}
+            if (_pawnStatus.IsDead)
+            {
+                return;
+            }
             _pawnStatus.HealthCurrent = 0f;
             _pawnStatus.InvokeOnHealthChanged();
             _pawnStatus.IsDead = true;
@@ -73,8 +82,8 @@ namespace WinterUniverse
         public void Revive()
         {
             _pawnStatus.IsDead = false;
-            _pawnStatus.RestoreHealth(_pawnStatus.HealthMax);
-            _pawnStatus.RestoreEnergy(_pawnStatus.EnergyMax);
+            _pawnStatus.RestoreHealth(_pawnStatus.HealthMaxStat.CurrentValue);
+            _pawnStatus.RestoreEnergy(_pawnStatus.EnergyMaxStat.CurrentValue);
             _pawnAnimator.PlayActionAnimation("Revive");
         }
     }

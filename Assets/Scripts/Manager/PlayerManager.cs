@@ -8,14 +8,18 @@ namespace WinterUniverse
         private PawnController _pawn;
         private PlayerInputActions _inputActions;
 
-        [SerializeField] private GameObject _pawnPrefab;
         [SerializeField] private Transform _spawnPoint;
+
+        private void Awake()
+        {
+            _pawn = LeanPool.Spawn(GameManager.StaticInstance.PawnPrefab, _spawnPoint.position, Quaternion.identity).GetComponent<PawnController>();
+        }
 
         private void Start()
         {
-            _pawn = LeanPool.Spawn(_pawnPrefab, _spawnPoint.position, Quaternion.identity).GetComponent<PawnController>();
             _inputActions = new();
             _inputActions.Enable();
+            _pawn.InitializePawn();
         }
 
         private void Update()
@@ -25,6 +29,11 @@ namespace WinterUniverse
             _pawn.PawnInput.AttackInput = _inputActions.Pawn.Attack.IsPressed();
             _pawn.PawnInput.AimInput = _inputActions.Pawn.Aim.IsPressed();
             _pawn.PawnInput.DashInput = _inputActions.Pawn.Dash.IsPressed();
+        }
+
+        private void FixedUpdate()
+        {
+            _pawn.OnFixedUpdate();
         }
     }
 }

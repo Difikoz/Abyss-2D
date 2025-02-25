@@ -2,17 +2,16 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
-    [CreateAssetMenu(fileName = "Armor Type", menuName = "Winter Universe/Item/Armor/New Type")]
-    public class ArmorType : ScriptableObject
+    public abstract class BaseInfoConfig : ScriptableObject
     {
         [SerializeField] private string _displayName = "Name";
+        [SerializeField, TextArea] private string _description = "Description";
         [SerializeField] private Color _color = Color.white;
         [SerializeField] private Sprite _icon;
-        [SerializeField] private bool _allowUnequip;
 
         public string DisplayName => _displayName;
+        public string Description => _description;
         public Color Color => _color;
         public Sprite Icon => _icon;
-        public bool AllowUnequip => _allowUnequip;
     }
 }
